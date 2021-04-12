@@ -8,6 +8,8 @@ class Play extends Phaser.Scene{
     }
     create(){
 
+        
+
         this.starfield = this.add.tileSprite(
             0,0,640,480, 'starfield'
         ).setOrigin(0,0);
@@ -18,6 +20,7 @@ class Play extends Phaser.Scene{
             game.config.height - borderUISize - borderPadding,
             'rocket'
         );
+        //  this.add.existing(this.p1Rocket);
 
         //green UI background
         this.add.rectangle(0,borderUISize + borderPadding, 

@@ -1,7 +1,7 @@
 class Rocket extends Phaser.GameObjects.Sprite {
-    constructor(scene,x,y,texture,name){
+    constructor(scene,x,y,texture,frame){
         super(scene,x,y,texture,frame);
-        scene.add.exostomg(this);
+        scene.add.existing(this);
         this.movementSpeed = 2;
         this.isFiring = false;
     }
