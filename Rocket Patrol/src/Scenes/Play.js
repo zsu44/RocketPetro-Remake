@@ -12,7 +12,11 @@ class Play extends Phaser.Scene{
     }
     create(){
 
-        
+        this.anims.create({
+            key:'explode',
+            frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0}),
+            frameRate: 30
+        });
 
         this.starfield = this.add.tileSprite(
             0,0,640,480, 'starfield'
@@ -73,15 +77,15 @@ class Play extends Phaser.Scene{
 
         if(this.checkCollision(this.p1Rocket, this.ship3)){
             this.p1Rocket.reset();
-            this.ship3.reset();
+            this.shipExplode(this.ship3);
         }
         if(this.checkCollision(this.p1Rocket, this.ship2)){
             this.p1Rocket.reset();
-            this.ship2.reset();
+            this.shipExplode(this.ship2);
         }
         if(this.checkCollision(this.p1Rocket, this.ship1)){
             this.p1Rocket.reset();
-            this.ship1.reset();
+            this.shipExplode(this.ship1);
         }
         
 
@@ -95,6 +99,17 @@ class Play extends Phaser.Scene{
             }else{
                 return false;
             }
+    }
+
+    shipExplode(ship){
+        ship.alpha = 0;
+        let boom = this.add.sprite(ship.x,ship.y,'explosion').setOrigin(0,0);
+        boom.anims.play('explode');
+        boom.on('animationcomplete',() => {
+            ship.reset();
+            ship.alpha = 1;
+            boom.destroy();
+        });
     }
     
     
