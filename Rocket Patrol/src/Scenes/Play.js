@@ -6,6 +6,9 @@ class Play extends Phaser.Scene{
         this.load.image('starfield','assets/starfield.png');
         this.load.image('rocket','assets/rocket.png');
         this.load.image('spaceship','assets/spaceship.png');
+        this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
+        this.load.audio('sfx_explosion', './assets/explosion38.wav');
+        this.load.audio('sfx_rocket', './assets/rocket_shot.wav');
     }
     create(){
 
@@ -68,15 +71,31 @@ class Play extends Phaser.Scene{
         this.ship2.update();
         this.ship3.update();
 
+        if(this.checkCollision(this.p1Rocket, this.ship3)){
+            this.p1Rocket.reset();
+            this.ship3.reset();
+        }
+        if(this.checkCollision(this.p1Rocket, this.ship2)){
+            this.p1Rocket.reset();
+            this.ship2.reset();
+        }
+        if(this.checkCollision(this.p1Rocket, this.ship1)){
+            this.p1Rocket.reset();
+            this.ship1.reset();
+        }
+        
+
     }
-    checkCollsion(rocket,ship){
-        if(rocket.x + rocket.width > ship.x && 
-           rocket.x < ship.x + ship.width &&
-           rocket.y + rocket.height > ship.y &&
-           rocket.y < ship.y + ship.height)
-           ship.alpha = 0;
-           rocket.reset();
-           ship.reset();
+    checkCollision(rocket,ship){
+        if(rocket.x < ship.x + ship.width && 
+            rocket.x + rocket.width > ship.x && 
+            rocket.y < ship.y + ship.height &&
+            rocket.height + rocket.y > ship. y){
+                return true;
+            }else{
+                return false;
+            }
     }
+    
     
 }
