@@ -63,12 +63,20 @@ class Play extends Phaser.Scene{
 
     update() {
         this.starfield.tilePositionX -= 4;
-
         this.p1Rocket.update();
-
         this.ship1.update();
         this.ship2.update();
         this.ship3.update();
 
     }
+    checkCollsion(rocket,ship){
+        if(rocket.x + rocket.width > ship.x && 
+           rocket.x < ship.x + ship.width &&
+           rocket.y + rocket.height > ship.y &&
+           rocket.y < ship.y + ship.height)
+           ship.alpha = 0;
+           rocket.reset();
+           ship.reset();
+    }
+    
 }
